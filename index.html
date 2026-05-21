@@ -1,0 +1,2241 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     Portofolio Pribadi: M Ridho Nur Aziz
+     Dibuat dengan HTML, CSS, dan JavaScript murni
+     Siap deploy ke GitHub Pages
+     ============================================================ -->
+<html lang="id" data-theme="dark">
+<head>
+  <!-- ── Meta dasar halaman ── -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portofolio M Ridho Nur Aziz — Web Developer & Digital Agency" />
+  <meta name="author" content="M Ridho Nur Aziz" />
+
+  <!-- ── Judul tab browser ── -->
+  <title>RIDHO — M Ridho Nur Aziz</title>
+
+  <!-- ── Favicon SVG inline sebagai data URI ── -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%230a0a0a'/><text y='.9em' x='50%' text-anchor='middle' font-size='58' font-family='serif' font-weight='700' fill='%23d4af37'>R</text></svg>" />
+
+  <!-- ── Google Fonts: Cormorant Garamond (display elegan) + Jost (body modern) ── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       CSS VARIABLES — Sistem Warna untuk Dark & Light Mode
+       Semua warna dikontrol dari sini untuk konsistensi
+       ============================================================ */
+    :root {
+      /* ── Warna Dark Mode (default) ── */
+      --bg-primary:    #080808;       /* Latar belakang utama sangat gelap */
+      --bg-secondary:  #111111;       /* Latar belakang kartu/section sekunder */
+      --bg-tertiary:   #1a1a1a;       /* Latar belakang elemen tersier */
+      --border-color:  #2a2a2a;       /* Warna garis pembatas */
+      --text-primary:  #e8e4d9;       /* Teks utama krem hangat */
+      --text-secondary:#9e9a92;       /* Teks sekunder/sub-judul */
+      --text-muted:    #5a5652;       /* Teks redup/placeholder */
+      --accent-gold:   #d4af37;       /* Aksen utama warna emas */
+      --accent-gold-dim:#8a7020;      /* Emas redup untuk hover */
+      --accent-blue:   #4fa3e0;       /* Aksen biru elektrik sekunder */
+      --shadow-card:   0 4px 30px rgba(0,0,0,0.6); /* Bayangan kartu */
+      --shadow-glow:   0 0 40px rgba(212,175,55,0.12); /* Efek glow emas */
+      --nav-bg:        rgba(8,8,8,0.88); /* Latar navigasi dengan transparansi */
+      --overlay:       rgba(8,8,8,0.7);  /* Overlay gelap */
+    }
+
+    /* ── Overrides saat Light Mode aktif ── */
+    [data-theme="light"] {
+      --bg-primary:    #f5f0e8;
+      --bg-secondary:  #ede8df;
+      --bg-tertiary:   #e4ddd3;
+      --border-color:  #d5cfc4;
+      --text-primary:  #1a1714;
+      --text-secondary:#5a5249;
+      --text-muted:    #9a9288;
+      --accent-gold:   #b8860b;
+      --accent-gold-dim:#7a5c08;
+      --accent-blue:   #2a7ab8;
+      --shadow-card:   0 4px 30px rgba(0,0,0,0.12);
+      --shadow-glow:   0 0 40px rgba(184,134,11,0.1);
+      --nav-bg:        rgba(245,240,232,0.92);
+      --overlay:       rgba(245,240,232,0.7);
+    }
+
+    /* ============================================================
+       RESET & BASE — Normalisasi elemen HTML
+       ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box; /* Hitung padding dalam total lebar */
+      margin: 0;              /* Hilangkan margin default browser */
+      padding: 0;             /* Hilangkan padding default browser */
+    }
+
+    /* ── Scroll halus untuk seluruh halaman ── */
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    /* ── Gaya dasar body ── */
+    body {
+      font-family: 'Jost', sans-serif;     /* Font utama body */
+      background-color: var(--bg-primary); /* Latar belakang dari variabel tema */
+      color: var(--text-primary);          /* Warna teks dari variabel tema */
+      line-height: 1.7;                    /* Jarak antar baris yang nyaman dibaca */
+      overflow-x: hidden;                  /* Sembunyikan overflow horizontal */
+      transition: background-color 0.4s ease, color 0.4s ease; /* Animasi saat ganti tema */
+    }
+
+    /* ── Scrollbar kustom untuk browser berbasis WebKit ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+    ::-webkit-scrollbar-thumb { background: var(--accent-gold); border-radius: 3px; }
+
+    /* ── Seleksi teks ── */
+    ::selection { background: var(--accent-gold); color: #000; }
+
+    /* ── Link dasar ── */
+    a { color: inherit; text-decoration: none; transition: color 0.3s ease; }
+
+    /* ── Gambar responsif ── */
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* ── Tombol dasar ── */
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    /* ── Kelas utilitas untuk section padding ── */
+    .section { padding: 100px 0; }
+    .container {
+      max-width: 1200px;    /* Lebar maksimal konten */
+      margin: 0 auto;       /* Tengahkan secara horizontal */
+      padding: 0 40px;      /* Jarak dari tepi kiri-kanan */
+    }
+
+    /* ── Label section kecil di atas judul ── */
+    .section-label {
+      font-family: 'DM Mono', monospace;   /* Font monospasi untuk nuansa teknis */
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    /* Garis dekoratif setelah label section */
+    .section-label::after {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: var(--accent-gold);
+      opacity: 0.5;
+    }
+
+    /* ── Judul section besar ── */
+    .section-title {
+      font-family: 'Cormorant Garamond', serif; /* Font display elegan */
+      font-size: clamp(2.2rem, 5vw, 3.6rem);    /* Ukuran responsif */
+      font-weight: 600;
+      line-height: 1.15;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+    }
+
+    /* ── Teks paragraf section ── */
+    .section-body {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      font-weight: 300;
+    }
+
+    /* ── Kelas animasi fade-in dari bawah (diaktifkan JS) ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    /* Status setelah elemen masuk viewport ── */
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================================
+       NAVIGASI — Sticky header dengan blur dan animasi
+       ============================================================ */
+    .navbar {
+      position: fixed;          /* Tempel di atas layar */
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;            /* Pastikan di atas semua elemen */
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px);       /* Efek kaca buram */
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-color);
+      transition: all 0.4s ease;
+    }
+
+    /* ── Isi dalam navbar ── */
+    .navbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+      height: 70px;             /* Tinggi navbar */
+      display: flex;
+      align-items: center;
+      justify-content: space-between; /* Logo kiri, nav kanan */
+    }
+
+    /* ── Logo brand RIDHO ── */
+    .navbar-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--text-primary);
+      transition: color 0.3s ease;
+      position: relative;
+    }
+    /* Titik emas dekoratif di samping logo */
+    .navbar-logo::after {
+      content: '·';
+      color: var(--accent-gold);
+      margin-left: 2px;
+    }
+    .navbar-logo:hover { color: var(--accent-gold); }
+
+    /* ── Daftar menu navigasi (desktop) ── */
+    .navbar-menu {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+
+    /* ── Setiap item link di navbar ── */
+    .navbar-menu a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      padding: 6px 14px;
+      border-radius: 4px;
+      transition: all 0.25s ease;
+    }
+    .navbar-menu a:hover {
+      color: var(--text-primary);
+      background: var(--bg-tertiary);
+    }
+
+    /* ── Tombol switch tema gelap/terang ── */
+    .theme-toggle {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+    .theme-toggle:hover {
+      background: var(--accent-gold);
+      border-color: var(--accent-gold);
+    }
+
+    /* ── Ikon hamburger untuk menu mobile ── */
+    .hamburger {
+      display: none;           /* Tersembunyi di desktop */
+      flex-direction: column;
+      gap: 5px;
+      padding: 8px;
+      cursor: pointer;
+    }
+    /* Setiap garis hamburger ── */
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text-primary);
+      border-radius: 1px;
+      transition: all 0.3s ease;
+    }
+    /* Animasi hamburger saat menu terbuka ── */
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── Wrapper kanan navbar (tombol tema + hamburger) ── */
+    .navbar-right { display: flex; align-items: center; gap: 10px; }
+
+    /* ============================================================
+       HERO — Bagian pembuka halaman
+       ============================================================ */
+    .hero {
+      min-height: 100vh;              /* Setinggi layar penuh */
+      display: flex;
+      align-items: center;
+      padding-top: 70px;              /* Kompensasi tinggi navbar */
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── Efek latar belakang noise/grain untuk tekstur ── */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      /* Pattern titik-titik halus sebagai tekstur latar ── */
+      background-image: radial-gradient(circle, var(--accent-gold) 1px, transparent 1px);
+      background-size: 50px 50px;
+      opacity: 0.025;
+      pointer-events: none; /* Tidak menghalangi klik ── */
+    }
+
+    /* ── Gradien cahaya lembut di hero ── */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(212,175,55,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ── Konten utama hero ── */
+    .hero-content { position: relative; z-index: 1; max-width: 900px; }
+
+    /* ── Teks kecil di atas nama besar ── */
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      opacity: 0;                    /* Mulai tidak terlihat untuk animasi */
+      animation: fadeInDown 0.8s ease 0.2s forwards; /* Animasi masuk */
+    }
+    /* Garis di samping kiri eyebrow ── */
+    .hero-eyebrow::before {
+      content: '';
+      width: 50px;
+      height: 1px;
+      background: var(--accent-gold);
+    }
+
+    /* ── Nama besar di hero ── */
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 10vw, 8rem); /* Ukuran sangat responsif */
+      font-weight: 600;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeInUp 1s ease 0.4s forwards;
+    }
+    /* Warna berbeda untuk nama depan ── */
+    .hero-name .first { color: var(--text-primary); }
+    /* Nama keluarga dengan warna emas ── */
+    .hero-name .last {
+      color: var(--accent-gold);
+      font-style: italic;
+      display: block;
+    }
+
+    /* ── Tagline di bawah nama ── */
+    .hero-tagline {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: var(--text-secondary);
+      font-weight: 300;
+      max-width: 520px;
+      margin-bottom: 50px;
+      opacity: 0;
+      animation: fadeInUp 1s ease 0.6s forwards;
+    }
+    /* Bagian teks dengan aksen ── */
+    .hero-tagline strong {
+      color: var(--accent-gold);
+      font-weight: 500;
+    }
+
+    /* ── Grup tombol CTA hero ── */
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeInUp 1s ease 0.8s forwards;
+    }
+
+    /* ── Tombol primer (utama) ── */
+    .btn-primary {
+      padding: 14px 34px;
+      background: var(--accent-gold);
+      color: #000;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Efek kilap saat hover ── */
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 30%;
+      height: 200%;
+      background: rgba(255,255,255,0.25);
+      transform: skewX(-20deg);
+      transition: left 0.5s ease;
+    }
+    .btn-primary:hover::after { left: 130%; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(212,175,55,0.4); }
+
+    /* ── Tombol sekunder (outline) ── */
+    .btn-secondary {
+      padding: 13px 34px;
+      background: transparent;
+      color: var(--text-primary);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid var(--border-color);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+    .btn-secondary:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+      transform: translateY(-2px);
+    }
+
+    /* ── Indikator scroll di bawah hero ── */
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 40px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    /* Animasi garis scroll yang bergerak ── */
+    .hero-scroll-line {
+      width: 40px;
+      height: 1px;
+      background: var(--text-muted);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-scroll-line::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--accent-gold);
+      animation: scrollLine 2s ease infinite;
+    }
+
+    /* ============================================================
+       ABOUT — Bagian tentang saya
+       ============================================================ */
+    .about { background: var(--bg-secondary); }
+
+    /* ── Layout dua kolom: teks kiri, angka kanan ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    /* ── Teks paragraf about ── */
+    .about-text p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      font-weight: 300;
+      line-height: 1.85;
+    }
+    .about-text p:first-of-type {
+      font-size: 1.2rem;
+      color: var(--text-primary);
+      font-weight: 300;
+    }
+
+    /* ── Statistik angka di kolom kanan ── */
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    /* ── Setiap kartu statistik ── */
+    .stat-card {
+      background: var(--bg-tertiary);
+      padding: 36px 28px;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Efek garis bawah emas saat hover ── */
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-gold);
+      transition: width 0.4s ease;
+    }
+    .stat-card:hover { background: var(--bg-primary); }
+    .stat-card:hover::after { width: 100%; }
+
+    /* ── Angka besar di stat card ── */
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 600;
+      color: var(--accent-gold);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    /* ── Label di bawah angka ── */
+    .stat-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ============================================================
+       SKILLS — Grid kartu keahlian
+       ============================================================ */
+    /* ── Grid 3 kolom untuk skill cards ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 60px;
+    }
+
+    /* ── Setiap kartu skill ── */
+    .skill-card {
+      background: var(--bg-secondary);
+      padding: 44px 36px;
+      border: 1px solid var(--border-color);
+      transition: all 0.35s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+    }
+    /* Efek highlight saat hover ── */
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .skill-card:hover {
+      background: var(--bg-tertiary);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card);
+    }
+    .skill-card:hover::before { opacity: 1; }
+
+    /* ── Ikon besar di atas skill card ── */
+    .skill-icon {
+      font-size: 2.4rem;
+      margin-bottom: 20px;
+      display: block;
+      filter: grayscale(0.3);
+      transition: filter 0.3s ease;
+    }
+    .skill-card:hover .skill-icon { filter: grayscale(0); }
+
+    /* ── Nama skill ── */
+    .skill-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+
+    /* ── Deskripsi singkat skill ── */
+    .skill-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ── Tag level atau kategori skill ── */
+    .skill-tag {
+      display: inline-block;
+      margin-top: 14px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      border: 1px solid var(--accent-gold);
+      padding: 3px 10px;
+      border-radius: 2px;
+      opacity: 0.7;
+    }
+
+    /* ============================================================
+       PORTFOLIO — Grid proyek
+       ============================================================ */
+    .portfolio { background: var(--bg-secondary); }
+
+    /* ── Header section dengan filter tabs ── */
+    .portfolio-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    /* ── Grid 3 kolom untuk proyek ── */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    /* ── Setiap kartu proyek ── */
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--bg-tertiary);
+      aspect-ratio: 4/3;       /* Rasio gambar tetap ── */
+      cursor: pointer;
+    }
+
+    /* ── Thumbnail proyek ── */
+    .project-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;        /* Gambar penuh mengisi area ── */
+      transition: transform 0.6s ease;
+      background: var(--bg-tertiary);
+    }
+    /* Gambar placeholder saat tidak ada thumbnail asli ── */
+    .project-thumb-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+      transition: transform 0.6s ease;
+    }
+    .project-thumb-placeholder .proj-icon { font-size: 2.5rem; opacity: 0.4; }
+    .project-thumb-placeholder .proj-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* ── Overlay info yang muncul saat hover ── */
+    .project-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 28px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .project-card:hover .project-overlay { opacity: 1; }
+    .project-card:hover .project-thumb,
+    .project-card:hover .project-thumb-placeholder { transform: scale(1.05); }
+
+    /* ── Nama proyek di overlay ── */
+    .project-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    /* ── Kategori proyek di overlay ── */
+    .project-cat {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 16px;
+    }
+
+    /* ── Tombol link proyek ── */
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,0.4);
+      padding-bottom: 2px;
+      transition: all 0.3s ease;
+      align-self: flex-start;
+    }
+    .project-link:hover { color: var(--accent-gold); border-color: var(--accent-gold); }
+
+    /* ── Kartu terakhir grid yang lebih besar (featured) ── */
+    .project-card.featured { grid-column: span 2; }
+
+    /* ============================================================
+       DIARY — Fitur catatan harian dengan localStorage
+       ============================================================ */
+    /* ── Layout dua kolom: form kiri, daftar catatan kanan ── */
+    .diary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 50px;
+      align-items: start;
+    }
+
+    /* ── Panel form tulis catatan ── */
+    .diary-form-panel {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      padding: 36px;
+      border-radius: 4px;
+      position: sticky;  /* Tempel saat scroll daftar panjang ── */
+      top: 90px;
+    }
+
+    /* ── Label input form ── */
+    .diary-form-panel label {
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    /* ── Input teks untuk judul catatan ── */
+    .diary-input {
+      width: 100%;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 3px;
+      padding: 12px 16px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      transition: border-color 0.3s ease;
+      margin-bottom: 16px;
+    }
+    .diary-input:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+    }
+    /* Placeholder teks saat input kosong ── */
+    .diary-input::placeholder { color: var(--text-muted); }
+
+    /* ── Textarea untuk isi catatan ── */
+    .diary-textarea {
+      width: 100%;
+      min-height: 140px;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 3px;
+      padding: 14px 16px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      resize: vertical;    /* Hanya bisa diresize secara vertikal ── */
+      line-height: 1.65;
+      transition: border-color 0.3s ease;
+      margin-bottom: 20px;
+    }
+    .diary-textarea:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+    }
+    .diary-textarea::placeholder { color: var(--text-muted); }
+
+    /* ── Tombol simpan catatan ── */
+    .btn-diary-save {
+      width: 100%;
+      padding: 13px;
+      background: var(--accent-gold);
+      color: #000;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+    .btn-diary-save:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    /* ── Pesan feedback setelah simpan ── */
+    .diary-feedback {
+      margin-top: 10px;
+      font-size: 0.82rem;
+      color: var(--accent-gold);
+      text-align: center;
+      min-height: 20px;
+    }
+
+    /* ── Area daftar catatan ── */
+    .diary-list-panel { display: flex; flex-direction: column; gap: 12px; }
+
+    /* ── Header daftar catatan dengan jumlah total ── */
+    .diary-list-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .diary-count {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* ── Pesan saat daftar catatan kosong ── */
+    .diary-empty {
+      text-align: center;
+      padding: 50px 20px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      border: 1px dashed var(--border-color);
+      border-radius: 4px;
+    }
+    .diary-empty .diary-empty-icon { font-size: 2rem; margin-bottom: 10px; }
+
+    /* ── Setiap item catatan di daftar ── */
+    .diary-item {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-left: 3px solid transparent;
+      border-radius: 3px;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+    .diary-item:hover {
+      border-left-color: var(--accent-gold);
+      background: var(--bg-tertiary);
+    }
+
+    /* ── Baris atas item: judul dan tanggal ── */
+    .diary-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    /* ── Judul catatan ── */
+    .diary-item-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* ── Tanggal catatan ── */
+    .diary-item-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.64rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    /* ── Isi/preview catatan ── */
+    .diary-item-body {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      /* Potong teks panjang menjadi 3 baris ── */
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ── Tombol aksi di bawah item catatan ── */
+    .diary-item-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    /* ── Tombol kecil edit/hapus ── */
+    .btn-diary-action {
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 2px;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      transition: all 0.25s ease;
+      font-family: 'DM Mono', monospace;
+    }
+    /* Tombol edit berwarna biru ── */
+    .btn-diary-action.edit:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+    /* Tombol hapus berwarna merah ── */
+    .btn-diary-action.delete:hover { border-color: #e05555; color: #e05555; }
+
+    /* ============================================================
+       TEMPLATES & TOOLS — Bagian akses template produktivitas
+       ============================================================ */
+    .templates { background: var(--bg-secondary); }
+
+    /* ── Grid dua kolom untuk dua template ── */
+    .templates-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      margin-top: 50px;
+    }
+
+    /* ── Kartu setiap template ── */
+    .template-card {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      padding: 50px 44px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      transition: all 0.35s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Efek latar gradien saat hover ── */
+    .template-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(212,175,55,0.04) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .template-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-glow);
+      border-color: rgba(212,175,55,0.3);
+    }
+    .template-card:hover::before { opacity: 1; }
+
+    /* ── Ikon besar template ── */
+    .template-icon { font-size: 2.8rem; }
+
+    /* ── Nama template ── */
+    .template-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* ── Deskripsi singkat template ── */
+    .template-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ── Fitur yang disertakan (bullet list kecil) ── */
+    .template-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .template-feature-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.66rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 2px;
+      color: var(--text-muted);
+    }
+
+    /* ── Tombol akses template ── */
+    .btn-template {
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 26px;
+      border: 1px solid var(--accent-gold);
+      color: var(--accent-gold);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+      align-self: flex-start;
+    }
+    .btn-template:hover {
+      background: var(--accent-gold);
+      color: #000;
+    }
+
+    /* ============================================================
+       KONTAK — Bagian CTA kontak
+       ============================================================ */
+    .contact { text-align: center; }
+
+    /* ── Area tengah kontak ── */
+    .contact-inner { max-width: 640px; margin: 0 auto; }
+
+    /* ── Teks besar ajakan kontak ── */
+    .contact-big {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 600;
+      line-height: 1.05;
+      color: var(--text-primary);
+      margin: 24px 0 28px;
+    }
+    /* Kata dengan aksen emas ── */
+    .contact-big em {
+      font-style: italic;
+      color: var(--accent-gold);
+    }
+
+    /* ── Teks deskripsi kontak ── */
+    .contact-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+      margin-bottom: 44px;
+      line-height: 1.8;
+    }
+
+    /* ── Tombol WhatsApp hijau ── */
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 40px;
+      background: #25d366;
+      color: #fff;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+    .btn-whatsapp:hover {
+      background: #1da851;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(37,211,102,0.35);
+    }
+
+    /* ── Info kontak tambahan (email, sosmed) ── */
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+    .contact-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: color 0.3s ease;
+    }
+    .contact-link:hover { color: var(--accent-gold); }
+
+    /* ============================================================
+       FOOTER — Bagian bawah halaman
+       ============================================================ */
+    footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+      padding: 40px 0;
+    }
+
+    /* ── Layout footer: logo kiri, link tengah, copyright kanan ── */
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    /* ── Logo di footer ── */
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      color: var(--text-secondary);
+    }
+
+    /* ── Link sosial media ── */
+    .footer-socials {
+      display: flex;
+      gap: 20px;
+    }
+    .footer-social-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .footer-social-link:hover { color: var(--accent-gold); }
+
+    /* ── Teks copyright ── */
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* ============================================================
+       TOMBOL KEMBALI KE ATAS — Fixed di pojok kanan bawah
+       ============================================================ */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 46px;
+      height: 46px;
+      background: var(--accent-gold);
+      color: #000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      z-index: 999;
+      /* Mulai tersembunyi, muncul setelah scroll ── */
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: all 0.4s ease;
+      box-shadow: 0 4px 20px rgba(212,175,55,0.4);
+    }
+    /* Status visible saat halaman di-scroll ── */
+    .back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .back-to-top:hover { background: var(--accent-gold-dim); transform: translateY(-3px); }
+
+    /* ============================================================
+       ANIMASI KEYFRAMES
+       ============================================================ */
+    /* ── Muncul dari bawah ── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    /* ── Muncul dari atas ── */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    /* ── Garis scroll bergerak dari kiri ke kanan ── */
+    @keyframes scrollLine {
+      0%   { left: -100%; }
+      50%  { left: 0%; }
+      100% { left: 100%; }
+    }
+
+    /* ============================================================
+       DIVIDER — Pembatas section tipis
+       ============================================================ */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+      margin: 0;
+    }
+
+    /* ============================================================
+       MOBILE MENU — Overlay menu untuk layar kecil
+       ============================================================ */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: var(--bg-primary);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      /* Mulai di luar layar, animasi saat dibuka ── */
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+    /* Menu terbuka ── */
+    .mobile-menu.open { transform: translateX(0); }
+
+    /* ── Link di dalam mobile menu ── */
+    .mobile-menu a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+      letter-spacing: 0.05em;
+      transition: color 0.3s ease;
+    }
+    .mobile-menu a:hover { color: var(--accent-gold); }
+
+    /* ============================================================
+       RESPONSIVE — Penyesuaian layout untuk tablet dan mobile
+       ============================================================ */
+    @media (max-width: 1024px) {
+      /* ── Keahlian jadi 2 kolom di tablet ── */
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      /* ── Portofolio jadi 2 kolom ── */
+      .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+      /* ── Tentang jadi 1 kolom ── */
+      .about-grid { grid-template-columns: 1fr; gap: 50px; }
+    }
+
+    @media (max-width: 768px) {
+      /* ── Container lebih kecil ── */
+      .container { padding: 0 24px; }
+
+      /* ── Section lebih kompak ── */
+      .section { padding: 70px 0; }
+
+      /* ── Sembunyikan menu desktop, tampilkan hamburger ── */
+      .navbar-menu { display: none; }
+      .hamburger { display: flex; }
+      .navbar-inner { padding: 0 24px; }
+
+      /* ── Hero scroll indicator disembunyikan ── */
+      .hero-scroll { display: none; }
+
+      /* ── Skill jadi 1 kolom ── */
+      .skills-grid { grid-template-columns: 1fr; }
+
+      /* ── Portofolio 1 kolom, featured tidak span ── */
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .project-card.featured { grid-column: span 1; }
+
+      /* ── Diary 1 kolom ── */
+      .diary-grid { grid-template-columns: 1fr; }
+      .diary-form-panel { position: static; }
+
+      /* ── Template 1 kolom ── */
+      .templates-grid { grid-template-columns: 1fr; }
+
+      /* ── Footer 1 kolom tengah ── */
+      .footer-inner { flex-direction: column; text-align: center; }
+
+      /* ── Stat cards 2x2 ── */
+      .about-stats { grid-template-columns: 1fr 1fr; }
+
+      /* ── Hero CTA vertikal ── */
+      .hero-cta { flex-direction: column; gap: 12px; }
+      .btn-primary, .btn-secondary { text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      /* ── Teks hero lebih kecil ── */
+      .hero-name { font-size: clamp(2.8rem, 14vw, 5rem); }
+      .template-card { padding: 34px 28px; }
+      .skill-card { padding: 32px 28px; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ============================================================
+       NAVIGASI — Sticky header
+       ============================================================ -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <!-- Logo brand RIDHO di sisi kiri -->
+      <a href="#" class="navbar-logo" aria-label="RIDHO — Home">RIDHO</a>
+
+      <!-- Menu navigasi untuk desktop -->
+      <ul class="navbar-menu" role="navigation" aria-label="Menu utama">
+        <li><a href="#about">Tentang</a></li>
+        <li><a href="#skills">Keahlian</a></li>
+        <li><a href="#portfolio">Portofolio</a></li>
+        <li><a href="#diary">Diary</a></li>
+        <li><a href="#templates">Templates</a></li>
+        <li><a href="#contact">Kontak</a></li>
+      </ul>
+
+      <!-- Kanan navbar: tombol tema + hamburger -->
+      <div class="navbar-right">
+        <!-- Tombol switch tema gelap/terang -->
+        <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema">🌙</button>
+        <!-- Hamburger untuk mobile -->
+        <div class="hamburger" id="hamburger" aria-label="Buka menu" role="button" tabindex="0">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Menu mobile overlay (tersembunyi sampai hamburger diklik) -->
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu navigasi mobile">
+    <a href="#about"     onclick="closeMobileMenu()">Tentang</a>
+    <a href="#skills"    onclick="closeMobileMenu()">Keahlian</a>
+    <a href="#portfolio" onclick="closeMobileMenu()">Portofolio</a>
+    <a href="#diary"     onclick="closeMobileMenu()">Diary</a>
+    <a href="#templates" onclick="closeMobileMenu()">Templates</a>
+    <a href="#contact"   onclick="closeMobileMenu()">Kontak</a>
+  </div>
+
+  <!-- ============================================================
+       HERO — Halaman pembuka utama
+       ============================================================ -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-content">
+        <!-- Label kecil di atas nama -->
+        <div class="hero-eyebrow">Web Developer &amp; Digital Agency</div>
+
+        <!-- Nama besar pemilik -->
+        <h1 class="hero-name">
+          <span class="first">M Ridho</span>
+          <span class="last">Nur Aziz</span>
+        </h1>
+
+        <!-- Tagline singkat tentang diri -->
+        <p class="hero-tagline">
+          Membangun pengalaman digital yang <strong>bermakna</strong> —
+          dari baris kode hingga strategi agensi yang menggerakkan bisnis ke depan.
+        </p>
+
+        <!-- Tombol CTA: lihat portofolio dan hubungi -->
+        <div class="hero-cta">
+          <a href="#portfolio" class="btn-primary">Lihat Portofolio →</a>
+          <a href="#contact"   class="btn-secondary">Hubungi Saya</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Indikator scroll ke bawah -->
+    <div class="hero-scroll" aria-hidden="true">
+      <div class="hero-scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================================================
+       TENTANG SAYA — Narasi profesional + statistik
+       ============================================================ -->
+  <section class="about section" id="about">
+    <div class="container">
+      <div class="about-grid">
+
+        <!-- Kolom kiri: teks narasi -->
+        <div class="about-text fade-up">
+          <!-- Label section -->
+          <div class="section-label">Tentang</div>
+          <h2 class="section-title">Bukan Sekadar<br />Developer Biasa</h2>
+
+          <!-- Paragraf pembuka yang kuat -->
+          <p>
+            Halo, saya <strong>M Ridho Nur Aziz</strong> — seorang web developer sekaligus
+            penggiat digital yang percaya bahwa teknologi dan kreativitas adalah dua sisi
+            dari koin yang sama.
+          </p>
+
+          <!-- Latar belakang dan passion -->
+          <p>
+            Berawal dari rasa penasaran terhadap cara kerja internet, saya kini menguasai
+            spektrum luas mulai dari HTML/CSS/JavaScript hingga Python untuk otomasi data.
+            Setiap proyek adalah kesempatan untuk memecahkan masalah nyata dengan solusi
+            yang elegan.
+          </p>
+
+          <!-- Tentang layanan agensi digital -->
+          <p>
+            Selain pengembangan web, saya menjalankan layanan <strong>Digital Agency</strong>
+            yang membantu bisnis dan personal branding tumbuh secara online — mulai dari
+            strategi konten, desain visual, hingga kehadiran digital yang komprehensif.
+          </p>
+
+          <!-- Nilai personal -->
+          <p>
+            Saya percaya pada proses yang terstruktur, komunikasi yang jelas, dan hasil
+            yang tidak hanya fungsional tapi juga meninggalkan kesan.
+          </p>
+        </div>
+
+        <!-- Kolom kanan: kartu statistik -->
+        <div class="about-stats fade-up">
+          <!-- Statistik 1: Proyek selesai -->
+          <div class="stat-card">
+            <div class="stat-number">12+</div>
+            <div class="stat-label">Proyek Selesai</div>
+          </div>
+          <!-- Statistik 2: Tahun pengalaman -->
+          <div class="stat-card">
+            <div class="stat-number">3+</div>
+            <div class="stat-label">Tahun Belajar</div>
+          </div>
+          <!-- Statistik 3: Klien puas -->
+          <div class="stat-card">
+            <div class="stat-number">8+</div>
+            <div class="stat-label">Klien Puas</div>
+          </div>
+          <!-- Statistik 4: Skill dikuasai -->
+          <div class="stat-card">
+            <div class="stat-number">6</div>
+            <div class="stat-label">Skill Utama</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================================================
+       KEAHLIAN — Grid 6 kartu skill
+       ============================================================ -->
+  <section class="section" id="skills">
+    <div class="container">
+      <!-- Header section -->
+      <div class="fade-up">
+        <div class="section-label">Keahlian</div>
+        <h2 class="section-title">Apa yang Bisa<br />Saya Lakukan</h2>
+        <p class="section-body">
+          Kombinasi skill teknis dan kreatif yang saling melengkapi
+          untuk menghasilkan produk digital berkualitas tinggi.
+        </p>
+      </div>
+
+      <!-- Grid 6 skill cards -->
+      <div class="skills-grid">
+
+        <!-- Skill 1: HTML -->
+        <div class="skill-card fade-up">
+          <span class="skill-icon">🌐</span>
+          <div class="skill-name">HTML</div>
+          <p class="skill-desc">
+            Membangun struktur halaman web yang semantis, aksesibel,
+            dan teroptimasi untuk mesin pencari dengan standar terbaru HTML5.
+          </p>
+          <span class="skill-tag">Frontend</span>
+        </div>
+
+        <!-- Skill 2: CSS -->
+        <div class="skill-card fade-up">
+          <span class="skill-icon">🎨</span>
+          <div class="skill-name">CSS</div>
+          <p class="skill-desc">
+            Merancang antarmuka yang responsif dan estetik menggunakan
+            CSS3, Flexbox, Grid, animasi, dan custom properties untuk konsistensi visual.
+          </p>
+          <span class="skill-tag">Styling</span>
+        </div>
+
+        <!-- Skill 3: JavaScript -->
+        <div class="skill-card fade-up">
+          <span class="skill-icon">⚡</span>
+          <div class="skill-name">JavaScript</div>
+          <p class="skill-desc">
+            Menghadirkan interaktivitas dan logika dinamis pada web —
+            dari DOM manipulation, fetch API, hingga ES6+ modern syntax.
+          </p>
+          <span class="skill-tag">Frontend</span>
+        </div>
+
+        <!-- Skill 4: Python -->
+        <div class="skill-card fade-up">
+          <span class="skill-icon">🐍</span>
+          <div class="skill-name">Python</div>
+          <p class="skill-desc">
+            Otomasi tugas berulang, pengolahan data, scripting,
+            dan eksplorasi library ekosistem Python yang kaya untuk berbagai kebutuhan.
+          </p>
+          <span class="skill-tag">Scripting</span>
+        </div>
+
+        <!-- Skill 5: Excel -->
+        <div class="skill-card fade-up">
+          <span class="skill-icon">📊</span>
+          <div class="skill-name">Excel</div>
+          <p class="skill-desc">
+            Analisis data, pembuatan dashboard interaktif, formula lanjutan,
+            pivot table, dan visualisasi data untuk pengambilan keputusan bisnis.
+          </p>
+          <span class="skill-tag">Data</span>
+        </div>
+
+        <!-- Skill 6: Digital Agency -->
+        <div class="skill-card fade-up">
+          <span class="skill-icon">🚀</span>
+          <div class="skill-name">Digital Agency</div>
+          <p class="skill-desc">
+            Menjalankan layanan agensi digital menyeluruh: strategi konten,
+            pengelolaan media sosial, desain branding, dan konsultasi pertumbuhan
+            bisnis online untuk UMKM dan personal brand.
+          </p>
+          <span class="skill-tag">Layanan</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================================================
+       PORTOFOLIO — Grid proyek-proyek pilihan
+       ============================================================ -->
+  <section class="portfolio section" id="portfolio">
+    <div class="container">
+      <!-- Header dengan deskripsi -->
+      <div class="portfolio-header fade-up">
+        <div>
+          <div class="section-label">Portofolio</div>
+          <h2 class="section-title">Karya Pilihan</h2>
+        </div>
+        <p style="max-width:300px;color:var(--text-secondary);font-size:0.9rem;font-weight:300;line-height:1.7">
+          Koleksi proyek yang mencerminkan pendekatan saya terhadap kualitas dan detail.
+        </p>
+      </div>
+
+      <!-- Grid proyek -->
+      <div class="portfolio-grid">
+
+        <!-- Proyek 1: Featured (2 kolom) -->
+        <div class="project-card featured fade-up">
+          <div class="project-thumb-placeholder">
+            <div class="proj-icon">💻</div>
+            <div class="proj-label">Website Project</div>
+          </div>
+          <div class="project-overlay">
+            <div class="project-cat">Web Development</div>
+            <div class="project-title">Landing Page Bisnis Modern</div>
+            <!-- Ganti href dengan link proyek asli -->
+            <a href="#" class="project-link" target="_blank" rel="noopener">Lihat Proyek ↗</a>
+          </div>
+        </div>
+
+        <!-- Proyek 2 -->
+        <div class="project-card fade-up">
+          <div class="project-thumb-placeholder">
+            <div class="proj-icon">📱</div>
+            <div class="proj-label">UI/UX Project</div>
+          </div>
+          <div class="project-overlay">
+            <div class="project-cat">UI Design</div>
+            <div class="project-title">Desain Antarmuka Aplikasi</div>
+            <a href="#" class="project-link" target="_blank" rel="noopener">Lihat Proyek ↗</a>
+          </div>
+        </div>
+
+        <!-- Proyek 3 -->
+        <div class="project-card fade-up">
+          <div class="project-thumb-placeholder">
+            <div class="proj-icon">📊</div>
+            <div class="proj-label">Data Project</div>
+          </div>
+          <div class="project-overlay">
+            <div class="project-cat">Data Analysis</div>
+            <div class="project-title">Dashboard Analitik Penjualan</div>
+            <a href="#" class="project-link" target="_blank" rel="noopener">Lihat Proyek ↗</a>
+          </div>
+        </div>
+
+        <!-- Proyek 4 -->
+        <div class="project-card fade-up">
+          <div class="project-thumb-placeholder">
+            <div class="proj-icon">🤖</div>
+            <div class="proj-label">Automation</div>
+          </div>
+          <div class="project-overlay">
+            <div class="project-cat">Python Automation</div>
+            <div class="project-title">Script Otomasi Data Entry</div>
+            <a href="#" class="project-link" target="_blank" rel="noopener">Lihat Proyek ↗</a>
+          </div>
+        </div>
+
+        <!-- Proyek 5 -->
+        <div class="project-card fade-up">
+          <div class="project-thumb-placeholder">
+            <div class="proj-icon">🎯</div>
+            <div class="proj-label">Digital Marketing</div>
+          </div>
+          <div class="project-overlay">
+            <div class="project-cat">Digital Agency</div>
+            <div class="project-title">Kampanye Branding UMKM</div>
+            <a href="#" class="project-link" target="_blank" rel="noopener">Lihat Proyek ↗</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================================================
+       CATATAN HARIAN (DIARY)
+       Data disimpan di localStorage browser pengunjung
+       ============================================================ -->
+  <section class="section" id="diary">
+    <div class="container">
+      <!-- Header section diary -->
+      <div class="fade-up">
+        <div class="section-label">Catatan Harian</div>
+        <h2 class="section-title">Diary Pribadimu</h2>
+        <p class="section-body">
+          Tulis, simpan, dan kelola catatan harianmu langsung di sini.
+          Semua data tersimpan aman di browser — tidak akan hilang saat halaman direfresh.
+        </p>
+      </div>
+
+      <!-- Grid dua kolom: form kiri, daftar kanan -->
+      <div class="diary-grid">
+
+        <!-- Panel kiri: form menulis catatan -->
+        <div class="diary-form-panel fade-up">
+          <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;margin-bottom:24px;color:var(--text-primary)">
+            ✍️ Tulis Catatan
+          </h3>
+
+          <!-- Input judul catatan -->
+          <label for="diaryTitle">Judul Catatan</label>
+          <input
+            type="text"
+            id="diaryTitle"
+            class="diary-input"
+            placeholder="Apa yang terjadi hari ini?"
+            maxlength="100"
+          />
+
+          <!-- Textarea isi catatan -->
+          <label for="diaryBody">Isi Catatan</label>
+          <textarea
+            id="diaryBody"
+            class="diary-textarea"
+            placeholder="Ceritakan perasaan, pikiran, atau kejadian yang ingin kamu ingat..."
+            maxlength="2000"
+          ></textarea>
+
+          <!-- Tombol simpan: mode tambah atau edit -->
+          <button class="btn-diary-save" id="diarySaveBtn" onclick="saveDiaryEntry()">
+            💾 Simpan Catatan
+          </button>
+
+          <!-- Pesan feedback setelah aksi -->
+          <div class="diary-feedback" id="diaryFeedback" aria-live="polite"></div>
+        </div>
+
+        <!-- Panel kanan: daftar catatan tersimpan -->
+        <div class="diary-list-panel fade-up">
+          <!-- Header dengan jumlah catatan -->
+          <div class="diary-list-header">
+            <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--text-primary)">
+              📖 Catatan Tersimpan
+            </h3>
+            <span class="diary-count" id="diaryCount">0 catatan</span>
+          </div>
+
+          <!-- Area daftar yang diisi oleh JavaScript -->
+          <div id="diaryList">
+            <!-- Pesan default saat belum ada catatan -->
+            <div class="diary-empty">
+              <div class="diary-empty-icon">📭</div>
+              <p>Belum ada catatan. Mulailah menulis sesuatu!</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================================================
+       TEMPLATE & TOOLS — Akses template produktivitas
+       ============================================================ -->
+  <section class="templates section" id="templates">
+    <div class="container">
+      <!-- Header section -->
+      <div class="fade-up">
+        <div class="section-label">Template &amp; Tools</div>
+        <h2 class="section-title">Produktif Lebih<br />Mudah</h2>
+        <p class="section-body">
+          Template siap pakai yang saya gunakan sehari-hari untuk mengorganisir
+          waktu dan pekerjaan. Gratis untuk kamu.
+        </p>
+      </div>
+
+      <!-- Grid dua kartu template -->
+      <div class="templates-grid">
+
+        <!-- Template Notion -->
+        <div class="template-card fade-up">
+          <div class="template-icon">📓</div>
+          <div class="template-name">Template Jadwal Notion</div>
+          <p class="template-desc">
+            Sistem manajemen waktu berbasis Notion yang saya gunakan untuk tracking
+            proyek, goals mingguan, dan habit tracker harian. Tinggal duplikat dan pakai.
+          </p>
+          <!-- Tag fitur yang disertakan -->
+          <div class="template-features">
+            <span class="template-feature-tag">Weekly Planner</span>
+            <span class="template-feature-tag">Project Tracker</span>
+            <span class="template-feature-tag">Habit Tracker</span>
+            <span class="template-feature-tag">Goals Board</span>
+          </div>
+          <!-- Ganti href dengan link Notion publik kamu -->
+          <a href="GANTI_DENGAN_LINK_NOTION_KAMU" class="btn-template" target="_blank" rel="noopener">
+            📋 Akses Template Notion ↗
+          </a>
+        </div>
+
+        <!-- Template Obsidian -->
+        <div class="template-card fade-up">
+          <div class="template-icon">🔮</div>
+          <div class="template-name">Template Jadwal Obsidian</div>
+          <p class="template-desc">
+            Vault Obsidian dengan sistem PKM (Personal Knowledge Management)
+            yang terstruktur. Cocok untuk pelajar, peneliti, dan siapa pun yang
+            ingin membangun "second brain" digital.
+          </p>
+          <!-- Tag fitur yang disertakan -->
+          <div class="template-features">
+            <span class="template-feature-tag">Daily Notes</span>
+            <span class="template-feature-tag">Zettelkasten</span>
+            <span class="template-feature-tag">MOC System</span>
+            <span class="template-feature-tag">Tags & Links</span>
+          </div>
+          <!-- Ganti href dengan link download/penjelasan Obsidian kamu -->
+          <a href="GANTI_DENGAN_LINK_OBSIDIAN_KAMU" class="btn-template" target="_blank" rel="noopener">
+            ⬇️ Download Template Obsidian ↗
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================================================
+       KONTAK — Ajakan bertindak dan tombol WhatsApp
+       ============================================================ -->
+  <section class="contact section" id="contact">
+    <div class="container">
+      <div class="contact-inner fade-up">
+        <!-- Label section -->
+        <div class="section-label" style="justify-content:center">Kontak</div>
+
+        <!-- Heading besar yang menarik perhatian -->
+        <h2 class="contact-big">
+          Mari Kita<br /><em>Bekerja Sama</em>
+        </h2>
+
+        <!-- Teks deskripsi ajakan -->
+        <p class="contact-desc">
+          Punya proyek menarik, butuh konsultasi digital, atau sekadar ingin ngobrol?
+          Saya terbuka untuk kolaborasi, pertanyaan, dan peluang baru.
+        </p>
+
+        <!-- Tombol utama WhatsApp -->
+        <!-- Ganti nomor 6281234567890 dengan nomor WA kamu (format internasional tanpa +) -->
+        <a
+          href="https://wa.me/6281234567890?text=Halo%20Ridho%2C%20saya%20ingin%20berdiskusi%20tentang%20proyek."
+          class="btn-whatsapp"
+          target="_blank"
+          rel="noopener"
+          aria-label="Chat via WhatsApp"
+        >
+          <!-- Ikon WhatsApp SVG inline -->
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          Hubungi via WhatsApp
+        </a>
+
+        <!-- Link kontak tambahan (sosial media) -->
+        <div class="contact-links">
+          <!-- Ganti link # dengan URL profil asli kamu -->
+          <a href="https://github.com/username-kamu"   class="contact-link" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://linkedin.com/in/username-kamu" class="contact-link" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://instagram.com/username-kamu"  class="contact-link" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER — Baris bawah halaman
+       ============================================================ -->
+  <footer>
+    <div class="footer-inner">
+      <!-- Logo footer -->
+      <div class="footer-logo">RIDHO</div>
+
+      <!-- Link sosial media -->
+      <div class="footer-socials">
+        <!-- Ganti # dengan URL asli masing-masing platform -->
+        <a href="https://github.com/username-kamu"    class="footer-social-link" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a href="https://linkedin.com/in/username-kamu" class="footer-social-link" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://instagram.com/username-kamu" class="footer-social-link" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          Instagram
+        </a>
+      </div>
+
+      <!-- Copyright -->
+      <div class="footer-copy">
+        © <span id="copyrightYear"></span> M Ridho Nur Aziz. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       TOMBOL KEMBALI KE ATAS — Muncul setelah scroll
+       ============================================================ -->
+  <button
+    class="back-to-top"
+    id="backToTop"
+    onclick="window.scrollTo({top:0,behavior:'smooth'})"
+    aria-label="Kembali ke atas"
+  >
+    ↑
+  </button>
+
+
+  <!-- ============================================================
+       JAVASCRIPT — Semua logika interaktif
+       ============================================================ -->
+  <script>
+    /* ============================================================
+       TEMA — Dark/Light Mode Toggle
+       Preferensi disimpan di localStorage agar diingat browser
+       ============================================================ */
+
+    /* Ambil referensi tombol dan elemen html */
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const htmlEl         = document.documentElement; /* Elemen <html> penyimpan atribut data-theme */
+
+    /* Cek preferensi tersimpan di localStorage saat halaman dimuat */
+    const savedTheme = localStorage.getItem('ridho-theme') || 'dark';
+    applyTheme(savedTheme); /* Terapkan tema yang tersimpan */
+
+    /* Fungsi menerapkan tema dan memperbarui ikon tombol */
+    function applyTheme(theme) {
+      htmlEl.setAttribute('data-theme', theme); /* Set atribut tema di <html> */
+      /* Ganti ikon sesuai tema aktif */
+      themeToggleBtn.textContent = (theme === 'dark') ? '🌙' : '☀️';
+      localStorage.setItem('ridho-theme', theme); /* Simpan pilihan ke localStorage */
+    }
+
+    /* Event listener klik tombol tema */
+    themeToggleBtn.addEventListener('click', function() {
+      /* Toggle: jika dark → ganti light, jika light → ganti dark */
+      const current = htmlEl.getAttribute('data-theme');
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    /* ============================================================
+       NAVIGASI MOBILE — Hamburger menu
+       ============================================================ */
+
+    const hamburgerBtn = document.getElementById('hamburger');
+    const mobileMenuEl = document.getElementById('mobileMenu');
+
+    /* Fungsi menutup mobile menu */
+    function closeMobileMenu() {
+      hamburgerBtn.classList.remove('open');   /* Reset animasi hamburger */
+      mobileMenuEl.classList.remove('open');   /* Sembunyikan overlay menu */
+      document.body.style.overflow = '';       /* Kembalikan scroll body */
+    }
+
+    /* Toggle menu saat hamburger diklik */
+    hamburgerBtn.addEventListener('click', function() {
+      const isOpen = mobileMenuEl.classList.contains('open');
+      if (isOpen) {
+        closeMobileMenu(); /* Tutup jika sudah buka */
+      } else {
+        hamburgerBtn.classList.add('open');    /* Animasi × pada hamburger */
+        mobileMenuEl.classList.add('open');    /* Tampilkan overlay menu */
+        document.body.style.overflow = 'hidden'; /* Cegah scroll body di belakang */
+      }
+    });
+
+    /* Tutup menu mobile jika tombol Escape ditekan */
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeMobileMenu();
+    });
+
+    /* ============================================================
+       SCROLL EVENTS — Navbar & Back to Top
+       ============================================================ */
+
+    const navbarEl    = document.getElementById('navbar');
+    const backTopBtn  = document.getElementById('backToTop');
+
+    /* Listener scroll: update navbar dan tombol back to top */
+    window.addEventListener('scroll', function() {
+      const scrollY = window.pageYOffset; /* Posisi scroll vertikal saat ini */
+
+      /* Tombol kembali ke atas: tampilkan setelah scroll 400px */
+      if (scrollY > 400) {
+        backTopBtn.classList.add('visible');
+      } else {
+        backTopBtn.classList.remove('visible');
+      }
+    });
+
+    /* ============================================================
+       SCROLL ANIMATION — Fade-in elemen saat masuk viewport
+       Menggunakan Intersection Observer API yang efisien
+       ============================================================ */
+
+    /* Konfigurasi observer: elemen dianggap "terlihat" saat 15% masuk layar */
+    const observerOptions = {
+      threshold: 0.15,
+      rootMargin: '0px 0px -40px 0px' /* Sedikit offset agar animasi tidak terlalu cepat */
+    };
+
+    /* Buat Intersection Observer */
+    const fadeObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          /* Tambahkan kelas 'visible' saat elemen masuk viewport */
+          entry.target.classList.add('visible');
+          /* Hentikan observasi setelah animasi sekali (tidak repeat) */
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    /* Pasang observer ke semua elemen dengan kelas .fade-up */
+    document.querySelectorAll('.fade-up').forEach(function(el, index) {
+      /* Tambahkan delay bertahap untuk efek stagger (setiap item 0.1 detik lebih lambat) */
+      el.style.transitionDelay = (index % 4) * 0.1 + 's';
+      fadeObserver.observe(el);
+    });
+
+    /* ============================================================
+       SMOOTH SCROLL — Navigasi link internal dengan offset navbar
+       ============================================================ */
+
+    /* Tangkap klik semua link internal (href dimulai dengan #) */
+    document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href'); /* Ambil ID target */
+        if (targetId === '#') return;               /* Skip link ke atas (#) */
+
+        const targetEl = document.querySelector(targetId); /* Cari elemen target */
+        if (!targetEl) return;
+
+        e.preventDefault(); /* Cegah lompat instan browser */
+
+        /* Hitung posisi dengan offset tinggi navbar (70px) */
+        const navHeight   = navbarEl.offsetHeight;
+        const targetTop   = targetEl.getBoundingClientRect().top + window.pageYOffset;
+        const scrollTarget = targetTop - navHeight - 10;
+
+        /* Scroll halus ke posisi target */
+        window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+      });
+    });
+
+    /* ============================================================
+       DIARY — Sistem catatan harian dengan localStorage
+       Data format: array of objects { id, title, body, date }
+       ============================================================ */
+
+    /* Kunci localStorage untuk menyimpan data diary */
+    const DIARY_KEY = 'ridho-diary-entries';
+
+    /* Variabel untuk mode edit (null = mode tambah baru) */
+    let editingId = null;
+
+    /* Ambil semua catatan dari localStorage */
+    function getDiaryEntries() {
+      const raw = localStorage.getItem(DIARY_KEY); /* Baca raw JSON */
+      if (!raw) return [];                          /* Kembalikan array kosong jika belum ada */
+      try {
+        return JSON.parse(raw); /* Parse JSON menjadi array */
+      } catch {
+        return []; /* Jika JSON rusak, kembalikan kosong */
+      }
+    }
+
+    /* Simpan array catatan ke localStorage */
+    function saveDiaryEntries(entries) {
+      localStorage.setItem(DIARY_KEY, JSON.stringify(entries));
+    }
+
+    /* Generate ID unik berdasarkan timestamp */
+    function generateId() {
+      return Date.now().toString(36) + Math.random().toString(36).slice(2);
+    }
+
+    /* Format tanggal menjadi tampilan yang mudah dibaca */
+    function formatDate(isoString) {
+      const d = new Date(isoString);
+      /* Gunakan locale Indonesia untuk format tanggal ── */
+      return d.toLocaleDateString('id-ID', {
+        day: 'numeric', month: 'long', year: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+      });
+    }
+
+    /* Render ulang daftar catatan di DOM */
+    function renderDiaryList() {
+      const entries     = getDiaryEntries();          /* Ambil data terbaru */
+      const listEl      = document.getElementById('diaryList');    /* Kontainer daftar */
+      const countEl     = document.getElementById('diaryCount');   /* Teks jumlah catatan */
+
+      /* Perbarui penghitung catatan */
+      countEl.textContent = entries.length + ' catatan';
+
+      /* Jika tidak ada catatan, tampilkan placeholder kosong */
+      if (entries.length === 0) {
+        listEl.innerHTML = `
+          <div class="diary-empty">
+            <div class="diary-empty-icon">📭</div>
+            <p>Belum ada catatan. Mulailah menulis sesuatu!</p>
+          </div>`;
+        return;
+      }
+
+      /* Urutkan dari terbaru ke terlama */
+      const sorted = [...entries].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      /* Buat HTML untuk setiap catatan */
+      listEl.innerHTML = sorted.map(function(entry) {
+        /* Sanitasi teks agar aman dari XSS */
+        const safeTitle = escapeHtml(entry.title);
+        const safeBody  = escapeHtml(entry.body);
+        return `
+          <div class="diary-item" id="entry-${entry.id}">
+            <div class="diary-item-header">
+              <div class="diary-item-title">${safeTitle}</div>
+              <div class="diary-item-date">${formatDate(entry.date)}</div>
+            </div>
+            <div class="diary-item-body">${safeBody}</div>
+            <div class="diary-item-actions">
+              <!-- Tombol edit: isi form dengan data catatan ini -->
+              <button class="btn-diary-action edit"   onclick="editDiaryEntry('${entry.id}')">✏️ Edit</button>
+              <!-- Tombol hapus: konfirmasi sebelum menghapus -->
+              <button class="btn-diary-action delete" onclick="deleteDiaryEntry('${entry.id}')">🗑️ Hapus</button>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    /* Sanitasi HTML untuk mencegah XSS injection */
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    /* Tampilkan pesan feedback sementara */
+    function showFeedback(msg, isError) {
+      const fb = document.getElementById('diaryFeedback');
+      fb.textContent = msg;
+      fb.style.color = isError ? '#e05555' : 'var(--accent-gold)';
+      /* Bersihkan pesan setelah 3 detik */
+      setTimeout(() => { fb.textContent = ''; }, 3000);
+    }
+
+    /* Simpan catatan baru atau perbarui catatan yang diedit */
+    function saveDiaryEntry() {
+      const titleInput = document.getElementById('diaryTitle');
+      const bodyInput  = document.getElementById('diaryBody');
+      const saveBtn    = document.getElementById('diarySaveBtn');
+
+      const title = titleInput.value.trim(); /* Hapus spasi di awal/akhir */
+      const body  = bodyInput.value.trim();
+
+      /* Validasi: judul dan isi wajib diisi */
+      if (!title) { showFeedback('⚠️ Judul catatan tidak boleh kosong!', true); titleInput.focus(); return; }
+      if (!body)  { showFeedback('⚠️ Isi catatan tidak boleh kosong!', true);  bodyInput.focus();  return; }
+
+      const entries = getDiaryEntries(); /* Ambil data yang ada */
+
+      if (editingId) {
+        /* MODE EDIT: cari catatan dengan ID yang sesuai dan perbarui */
+        const idx = entries.findIndex(e => e.id === editingId);
+        if (idx !== -1) {
+          entries[idx].title = title;
+          entries[idx].body  = body;
+          entries[idx].date  = new Date().toISOString(); /* Perbarui tanggal edit */
+        }
+        editingId = null; /* Reset mode edit */
+        saveBtn.textContent = '💾 Simpan Catatan'; /* Kembalikan teks tombol */
+        showFeedback('✅ Catatan berhasil diperbarui!');
+      } else {
+        /* MODE TAMBAH: buat catatan baru dan tambahkan ke awal array */
+        const newEntry = {
+          id:    generateId(),
+          title: title,
+          body:  body,
+          date:  new Date().toISOString() /* Simpan dalam format ISO untuk sorting ── */
+        };
+        entries.unshift(newEntry); /* Tambahkan di awal */
+        showFeedback('✅ Catatan berhasil disimpan!');
+      }
+
+      saveDiaryEntries(entries); /* Tulis kembali ke localStorage */
+      renderDiaryList();         /* Render ulang tampilan daftar */
+
+      /* Kosongkan form setelah simpan */
+      titleInput.value = '';
+      bodyInput.value  = '';
+    }
+
+    /* Muat data catatan ke form untuk diedit */
+    function editDiaryEntry(id) {
+      const entries = getDiaryEntries();
+      const entry   = entries.find(e => e.id === id); /* Cari catatan berdasarkan ID */
+      if (!entry) return;
+
+      /* Isi form dengan data catatan yang akan diedit */
+      document.getElementById('diaryTitle').value = entry.title;
+      document.getElementById('diaryBody').value  = entry.body;
+
+      /* Set mode edit dengan menyimpan ID catatan */
+      editingId = id;
+
+      /* Perbarui teks tombol untuk menunjukkan mode edit */
+      document.getElementById('diarySaveBtn').textContent = '✏️ Perbarui Catatan';
+
+      /* Scroll ke form agar pengguna melihat perubahan */
+      document.getElementById('diaryTitle').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      document.getElementById('diaryTitle').focus();
+    }
+
+    /* Hapus catatan setelah konfirmasi */
+    function deleteDiaryEntry(id) {
+      /* Minta konfirmasi sebelum menghapus permanen */
+      if (!confirm('Apakah kamu yakin ingin menghapus catatan ini? Tindakan ini tidak bisa dibatalkan.')) return;
+
+      const entries = getDiaryEntries();
+      /* Filter: hilangkan catatan dengan ID yang cocok */
+      const updated = entries.filter(e => e.id !== id);
+      saveDiaryEntries(updated); /* Simpan array yang sudah difilter */
+      renderDiaryList();         /* Render ulang daftar */
+      showFeedback('🗑️ Catatan berhasil dihapus.');
+
+      /* Jika yang dihapus adalah yang sedang diedit, reset form */
+      if (editingId === id) {
+        editingId = null;
+        document.getElementById('diaryTitle').value = '';
+        document.getElementById('diaryBody').value  = '';
+        document.getElementById('diarySaveBtn').textContent = '💾 Simpan Catatan';
+      }
+    }
+
+    /* Izinkan menyimpan catatan dengan menekan Ctrl+Enter di textarea */
+    document.getElementById('diaryBody').addEventListener('keydown', function(e) {
+      if (e.ctrlKey && e.key === 'Enter') saveDiaryEntry();
+    });
+
+    /* ============================================================
+       INISIALISASI — Jalankan saat halaman pertama kali dimuat
+       ============================================================ */
+
+    /* Set tahun copyright secara otomatis */
+    document.getElementById('copyrightYear').textContent = new Date().getFullYear();
+
+    /* Render daftar catatan yang tersimpan saat halaman dibuka */
+    renderDiaryList();
+
+  </script>
+</body>
+</html>
