@@ -1,7 +1,6 @@
 # 🚀 RIDHO — Portfolio Pribadi M Ridho Nur Aziz
 
 Website portofolio profesional yang dibangun dengan HTML, CSS, dan JavaScript murni.
-Siap deploy ke **GitHub Pages** secara gratis dalam hitungan menit.
 
 ---
 
@@ -68,8 +67,6 @@ git push -u origin main
 
 Website akan live di:
 ```
-https://USERNAME.github.io/ridho-portfolio/
-```
 
 > Proses aktivasi membutuhkan 1–3 menit.
 
@@ -79,13 +76,7 @@ https://USERNAME.github.io/ridho-portfolio/
 
 Sebelum deploy, ganti placeholder berikut di `index.html`:
 
-### Nomor WhatsApp
-```html
-<!-- Cari baris ini, ganti 6281234567890 dengan nomor kamu -->
-href="https://wa.me/6281234567890?text=..."
 ```
-Format: kode negara + nomor tanpa `+` atau `0` di depan.
-Contoh: `628123456789` untuk `0812-3456-789`.
 
 ### Link Template Notion
 ```html
@@ -182,5 +173,5 @@ Untuk menggunakan domain sendiri (misal `ridho.dev`):
 
 ## 📄 Lisensi
 
-© 2025 M Ridho Nur Aziz. All rights reserved.
+© 2026 M Ridho Nur Aziz. All rights reserved.
 Website ini dibuat untuk penggunaan pribadi sebagai portofolio profesional.
